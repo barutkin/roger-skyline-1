@@ -2,6 +2,11 @@
 echo "LANG=en_US.utf-8" >> /etc/environment
 echo "LC_ALL=en_US.utf-8" >> /etc/environment
 
+# First boot script
+curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
+chmod +x /root/roger-skyline-1.firstboot.sh
+echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh" >> /etc/crontab
+
 # VGA Resolution
 cp -v /etc/default/grub /etc/default/grub.backup
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/' /etc/default/grub
@@ -19,8 +24,8 @@ sed -i 's/port=\"22\"/port=\"42122\"/' /etc/firewalld/services/ssh-roger-skyline
 mkdir -v -p /home/rjeraldi/.ssh
 curl -o /home/rjeraldi/.ssh/id_rsa.pub https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/id_rsa.pub
 chown rjeraldi:rjeraldi -R /home/rjeraldi/.ssh
-chmod 700 -R /home/rjeraldi/.ssh
-echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh" >> /etc/crontab
+chmod 700 /home/rjeraldi/.ssh
+chmod 600 /home/rjeraldi/.ssh/id_rsa.pub
 
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
