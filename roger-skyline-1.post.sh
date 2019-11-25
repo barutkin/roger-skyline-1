@@ -22,7 +22,7 @@ semanage port --add --type ssh_port_t --proto tcp 42122
 cp /usr/lib/firewalld/services/ssh.xml /etc/firewalld/services/ssh-roger-skyline-1.xml
 sed -i 's/port=\"22\"/port=\"42122\"/' /etc/firewalld/services/ssh-roger-skyline-1.xml
 mkdir -v -p /home/rjeraldi/.ssh
-curl -o /home/rjeraldi/.ssh/id_rsa.pub https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/id_rsa.pub
+curl -o /home/rjeraldi/.ssh/authorized_keys https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/authorized_keys
 chown rjeraldi:rjeraldi -R /home/rjeraldi/.ssh
 chmod 700 /home/rjeraldi/.ssh
 chmod 600 /home/rjeraldi/.ssh/id_rsa.pub
