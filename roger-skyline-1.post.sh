@@ -5,6 +5,7 @@ echo "LC_ALL=en_US.utf-8" >> /etc/environment
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
 chmod +x /root/roger-skyline-1.firstboot.sh
+cp -i /etc/crontab /etc/crontab.backup
 echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh" >> /etc/crontab
 
 # VGA Resolution
