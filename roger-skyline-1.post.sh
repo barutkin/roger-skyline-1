@@ -38,6 +38,9 @@ sed -i 's/SSLCertificateFile \/etc\/pki\/tls\/certs\/localhost.crt/SSLCertificat
 sed -i 's/SSLCertificateKeyFile \/etc\/pki\/tls\/private\/localhost.key/SSLCertificateKeyFile \/etc\/pki\/tls\/private\/rjeraldi-roger-skyline-1.key/' /etc/httpd/conf.d/ssl.conf
 curl -o /etc/httpd/modsecurity.d/modsec.user.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/modsec.user.conf
 curl -o /etc/httpd/modsecurity.d//activated_rules/408.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/408.conf
+curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/html.tar.gzip
+tar -xf html.tar.gzip
+mv -v html/* /var/www/html/
 
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
