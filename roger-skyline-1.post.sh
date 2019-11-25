@@ -30,9 +30,12 @@ chmod 600 /home/rjeraldi/.ssh/id_rsa.pub
 
 # HTTPD
 curl -o /etc/pki/tls/private/rjeraldi-roger-skyline-1.key https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.key
-chmod 100 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
-curl -o /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt https://github.com/barutkin/roger-skyline-1/raw/master/rjeraldi-roger-skyline-1.crt
+chmod 600 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
+curl -o /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.crt
 chmod 310 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
+cp -v /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.backup
+sed -i 's/SSLCertificateFile \/etc\/pki\/tls\/certs\/localhost.crt/SSLCertificateFile \/etc\/pki\/tls\/certs\/rjeraldi-roger-skyline-1.crt/' /etc/httpd/conf.d/ssl.conf
+sed -i 's/SSLCertificateKeyFile \/etc\/pki\/tls\/private\/localhost.key/SSLCertificateKeyFile \/etc\/pki\/tls\/private\/rjeraldi-roger-skyline-1.key/' /etc/httpd/conf.d/ssl.conf
 curl -o /etc/httpd/modsecurity.d/modsec.user.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/modsec.user.conf
 curl -o /etc/httpd/modsecurity.d//activated_rules/408.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/408.conf
 
