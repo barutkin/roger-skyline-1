@@ -28,5 +28,13 @@ chown rjeraldi:rjeraldi -R /home/rjeraldi/.ssh
 chmod 700 /home/rjeraldi/.ssh
 chmod 600 /home/rjeraldi/.ssh/id_rsa.pub
 
+# HTTPD
+curl -o /etc/pki/tls/private/rjeraldi-roger-skyline-1.key https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.key
+chmod 100 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
+curl -o /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt https://github.com/barutkin/roger-skyline-1/raw/master/rjeraldi-roger-skyline-1.crt
+chmod 310 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
+curl -o /etc/httpd/modsecurity.d/modsec.user.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/modsec.user.conf
+curl -o /etc/httpd/modsecurity.d//activated_rules/408.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/408.conf
+
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
