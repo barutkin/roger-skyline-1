@@ -37,10 +37,11 @@ cp -v /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.backup
 sed -i 's/SSLCertificateFile \/etc\/pki\/tls\/certs\/localhost.crt/SSLCertificateFile \/etc\/pki\/tls\/certs\/rjeraldi-roger-skyline-1.crt/' /etc/httpd/conf.d/ssl.conf
 sed -i 's/SSLCertificateKeyFile \/etc\/pki\/tls\/private\/localhost.key/SSLCertificateKeyFile \/etc\/pki\/tls\/private\/rjeraldi-roger-skyline-1.key/' /etc/httpd/conf.d/ssl.conf
 curl -o /etc/httpd/modsecurity.d/modsec.user.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/modsec.user.conf
-curl -o /etc/httpd/modsecurity.d//activated_rules/408.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/408.conf
+curl -o /etc/httpd/modsecurity.d/activated_rules/408.conf https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/408.conf
 curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/html.tar.gz
 tar -xf html.tar.gz
 mv -v html/* /var/www/html/
+curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/mod_evasive-test.pl
 
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
