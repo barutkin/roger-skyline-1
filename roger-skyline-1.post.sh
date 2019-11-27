@@ -2,12 +2,6 @@
 echo "LANG=en_US.utf-8" >> /etc/environment
 echo "LC_ALL=en_US.utf-8" >> /etc/environment
 
-# First boot script
-curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
-chmod +x /root/roger-skyline-1.firstboot.sh
-cp -i /etc/crontab /etc/crontab.backup
-echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh > /root/roger-skyline-1.firstboot.log" >> /etc/crontab
-
 # VGA Resolution
 cp -v /etc/default/grub /etc/default/grub.backup
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=1/' /etc/default/grub
@@ -45,3 +39,15 @@ curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/mod_ev
 
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
+cp -v /etc/sysconfig/suricata /etc/sysconfig/suricata.backup
+sed -i '/OPTIONS=\"-i eth0/OPTIONS=\"-q 0' /etc/sysconfig/suricata
+cp -i /etc/crontab /etc/crontab.clean
+echo "@reboot root /usr/sbin/iptables -I INPUT -j NFQUEUE" >> /etc/crontab
+echo "@reboot root /usr/sbin/iptables -I OUTPUT -j NFQUEUE" >> /etc/crontab
+cp -v /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.backup
+
+# First boot script
+curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
+chmod +x /root/roger-skyline-1.firstboot.sh
+cp -i /etc/crontab /etc/crontab.backup
+echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh > /root/roger-skyline-1.firstboot.log" >> /etc/crontab
