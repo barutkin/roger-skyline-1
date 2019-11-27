@@ -45,7 +45,7 @@ cp -i /etc/crontab /etc/crontab.clean
 echo "@reboot root /usr/sbin/iptables -I INPUT -j NFQUEUE" >> /etc/crontab
 echo "@reboot root /usr/sbin/iptables -I OUTPUT -j NFQUEUE" >> /etc/crontab
 mv -v /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.backup
-curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml
+curl -o /etc/suricata/suricata.yaml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml
 chown suricata:suricata /etc/suricata/suricata.yaml
 chmod 640 /etc/suricata/suricata.yaml
 curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'This is Suricata version ' '{print $2}' | awk '{print $1}'`/emerging.rules.tar.gz
