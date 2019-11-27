@@ -53,6 +53,9 @@ tar -xf emerging.rules.tar.gz
 cp rules/emerging-scan.rules /var/lib/suricata/rules/emerging-scan-drop.rules
 sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
 
+# ELK
+curl -o /etc/yum.repos.d/elastico.repo https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/elastico.repo
+
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
 chmod +x /root/roger-skyline-1.firstboot.sh
