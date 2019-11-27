@@ -40,11 +40,18 @@ curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/mod_ev
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
 cp -v /etc/sysconfig/suricata /etc/sysconfig/suricata.backup
-sed -i '/OPTIONS=\"-i eth0/OPTIONS=\"-q 0' /etc/sysconfig/suricata
+sed -i 's/OPTIONS=\"-i eth0/OPTIONS=\"-q 0/' /etc/sysconfig/suricata
 cp -i /etc/crontab /etc/crontab.clean
 echo "@reboot root /usr/sbin/iptables -I INPUT -j NFQUEUE" >> /etc/crontab
 echo "@reboot root /usr/sbin/iptables -I OUTPUT -j NFQUEUE" >> /etc/crontab
-cp -v /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.backup
+mv -v /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.backup
+curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml
+chown suricata:suricata /etc/suricata/suricata.yaml
+chmod 640 /etc/suricata/suricata.yaml
+curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'This is Suricata version ' '{print $2}' | awk '{print $1}'`/emerging.rules.tar.gz
+tar -xf emerging.rules.tar.gz
+cp rules/emerging-scan.rules /var/lib/suricata/rules/emerging-scan-drop.rules
+sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
 
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
