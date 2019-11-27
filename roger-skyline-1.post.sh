@@ -68,6 +68,7 @@ systemctl enable kibana
 systemctl enable filebeat
 
 # Update script
+curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh
 echo "@reboot root /bin/bash /root/update.sh" >> /etc/crontab
 echo "0 4 * * sun root /bin/bash /root/update.sh" >> /etc/crontab
 
