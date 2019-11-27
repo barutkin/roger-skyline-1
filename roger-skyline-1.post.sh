@@ -36,6 +36,7 @@ curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/html.t
 tar -xf html.tar.gz
 mv -v html/* /var/www/html/
 curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/mod_evasive-test.pl
+systemctl enable httpd
 
 # Suricata
 yum --enablerepo=epel-testing install -y suricata
@@ -55,6 +56,9 @@ sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
 
 # ELK
 curl -o /etc/yum.repos.d/elastico.repo https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/elastico.repo
+systemctl enable elasticsearch
+systemctl enable kibana
+systemctl enable filebeat
 
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
