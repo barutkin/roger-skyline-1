@@ -53,6 +53,7 @@ curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'Th
 tar -xf emerging.rules.tar.gz
 cp rules/emerging-scan.rules /var/lib/suricata/rules/emerging-scan-drop.rules
 sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
+systemctl enable suricata
 
 # ELK
 curl -o /etc/yum.repos.d/elastico.repo https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/elastico.repo
@@ -62,13 +63,13 @@ cp -v /etc/kibana/kibana.yml /etc/kibana/kibana.yml.backup
 sed -i 's/#server.port: 5601/server.port: 5601/' /etc/kibana/kibana.yml
 sed -i 's/#server.host: \"localhost\"/server.host: 0.0.0.0/' /etc/kibana/kibana.yml
 sed -i 's/#server.name: \"your-hostname\"/server.name: \"rjeraldi-roger-skyline-1\"/' /etc/kibana/kibana.yml
-
 systemctl enable elasticsearch
 systemctl enable kibana
 systemctl enable filebeat
 
 # Update script
-echo "@reboot root /roto/update >> /var/log/update_script.log" >> /etc/crontab
+echo "@reboot root /bin/bash /root/update.sh" >> /etc/crontab
+echo "0 4 * * sun root /bin/bash /root/update.sh" >> /etc/crontab
 
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
