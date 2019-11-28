@@ -23,6 +23,10 @@ echo "sleep 30"
 sleep 30
 echo "filebeat setup -e"
 filebeat setup -e
+echo "sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml"
+sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml
+echo "systemctl restart elasticsearch"
+systemctl restart elasticsearch
 echo "newaliases"
 newaliases
 

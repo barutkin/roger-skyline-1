@@ -31,20 +31,16 @@ echo "curl -o /home/rjeraldi/.ssh/authorized_keys https://raw.githubusercontent.
 curl -o /home/rjeraldi/.ssh/authorized_keys https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/authorized_keys
 echo "chown rjeraldi:rjeraldi -R /home/rjeraldi/.ssh"
 chown rjeraldi:rjeraldi -R /home/rjeraldi/.ssh
-echo "chmod 700 /home/rjeraldi/.ssh"
-chmod 700 /home/rjeraldi/.ssh
-echo "chmod 600 /home/rjeraldi/.ssh/id_rsa.pub"
-chmod 600 /home/rjeraldi/.ssh/id_rsa.pub
+chmod 700 -v /home/rjeraldi/.ssh
+chmod 600 -v /home/rjeraldi/.ssh/id_rsa.pub
 
 # HTTPD
 echo "curl -o /etc/pki/tls/private/rjeraldi-roger-skyline-1.key https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.key"
 curl -o /etc/pki/tls/private/rjeraldi-roger-skyline-1.key https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.key
-echo "chmod 600 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key"
-chmod 600 /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
+chmod 600 -v /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
 echo "curl -o /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.crt"
 curl -o /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.crt
-echo "chmod 600 /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt"
-chmod 600 /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt
+chmod 600 -v /etc/pki/tls/certs/rjeraldi-roger-skyline-1.crt
 echo "cp -v /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.backup"
 cp -v /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.backup
 echo "sed -i 's/SSLCertificateFile \/etc\/pki\/tls\/certs\/localhost.crt/SSLCertificateFile \/etc\/pki\/tls\/certs\/rjeraldi-roger-skyline-1.crt/' /etc/httpd/conf.d/ssl.conf"
@@ -79,8 +75,7 @@ echo "curl -o /etc/suricata/suricata.yaml https://raw.githubusercontent.com/baru
 curl -o /etc/suricata/suricata.yaml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml
 echo "chown suricata:suricata /etc/suricata/suricata.yaml"
 chown suricata:suricata /etc/suricata/suricata.yaml
-echo "chmod 640 /etc/suricata/suricata.yaml"
-chmod 640 /etc/suricata/suricata.yaml
+chmod 640 -v /etc/suricata/suricata.yaml
 echo "curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'This is Suricata version ' '{print $2}' | awk '{print $1}'`/emerging.rules.tar.gz"
 curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'This is Suricata version ' '{print $2}' | awk '{print $1}'`/emerging.rules.tar.gz
 echo "tar -xf emerging.rules.tar.gz"
@@ -99,8 +94,6 @@ curl -o /etc/yum.repos.d/elastico.repo https://raw.githubusercontent.com/barutki
 cp -v /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.backup
 echo "sed -i 's/#network.host: 192.168.0.1/network.host: localhost/' /etc/elasticsearch/elasticsearch.yml"
 sed -i 's/#network.host: 192.168.0.1/network.host: localhost/' /etc/elasticsearch/elasticsearch.yml
-echo "sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml"
-sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml
 cp -v /etc/kibana/kibana.yml /etc/kibana/kibana.yml.backup
 echo "sed -i 's/#server.port: 5601/server.port: 5601/' /etc/kibana/kibana.yml"
 sed -i 's/#server.port: 5601/server.port: 5601/' /etc/kibana/kibana.yml
@@ -112,6 +105,9 @@ echo "systemctl enable elasticsearch"
 systemctl enable elasticsearch
 echo "systemctl enable kibana"
 systemctl enable kibana
+echo "curl -o /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/filebeat.yml"
+curl -o /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/filebeat.yml
+chmod 600 -v /etc/filebeat/filebeat.yml
 echo "systemctl enable filebeat"
 systemctl enable filebeat
 
