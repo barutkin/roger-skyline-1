@@ -10,5 +10,6 @@ firewall-cmd --permanent --add-service='kibana'
 firewall-cmd --reload
 filebeat modules enable suricata apache system
 filebeat setup -e
+newaliases
 
 mv -v /etc/crontab.backup /etc/crontab

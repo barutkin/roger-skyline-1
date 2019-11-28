@@ -71,6 +71,9 @@ systemctl enable filebeat
 curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh
 echo "@reboot root /bin/bash /root/update.sh" >> /etc/crontab
 echo "0 4 * * sun root /bin/bash /root/update.sh" >> /etc/crontab
+cp -v /etc/aliases /etc/aliases.backup
+echo "root:           barutkin@gmail.com" >> /etc/aliases
+echo "@reboot root sleep 30 && cp -fv /etc/crontab /etc/crontab.last && while inotifywait -e close_write /etc/crontab; do echo -e \"Subject: \`hostname | awk -F\'.\' \'{print \$1}\'\`\'s crontab has been changed\n\`diff -u /etc/crontab.last /etc/crontab\`" | sendmail root; cp -fv /etc/crontab /etc/crontab.last; done" >> /etc/crontab
 
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
