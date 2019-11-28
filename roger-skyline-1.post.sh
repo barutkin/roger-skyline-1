@@ -72,8 +72,8 @@ cp -v /etc/sysconfig/suricata /etc/sysconfig/suricata.backup
 echo "sed -i 's/OPTIONS=\"-i eth0/OPTIONS=\"-q 0/' /etc/sysconfig/suricata"
 sed -i 's/OPTIONS=\"-i eth0/OPTIONS=\"-q 0/' /etc/sysconfig/suricata
 cp -v /etc/crontab /etc/crontab.clean
-echo "echo @reboot root sleep 30 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I INPUT -j NFQUEUE >> /etc/crontab"
-echo "@reboot root sleep 30 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I INPUT -j NFQUEUE" >> /etc/crontab
+echo "echo @reboot root sleep 60 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I OUTPUT -j NFQUEUE >> /etc/crontab"
+echo "@reboot root sleep 60 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I OUTPUT -j NFQUEUE" >> /etc/crontab
 mv -v /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.backup
 echo "curl -o /etc/suricata/suricata.yaml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml"
 curl -o /etc/suricata/suricata.yaml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml
@@ -86,9 +86,10 @@ curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'Th
 echo "tar -xf emerging.rules.tar.gz"
 tar -xf emerging.rules.tar.gz
 mkdir -pv /var/lib/suricata/rules
-cp -v rules/emerging-scan.rules /var/lib/suricata/rules/emerging-scan-drop.rules
-echo "sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules"
-sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
+cp -v rules/emerging-scan.rules /var/lib/suricata/rules/
+# cp -v rules/emerging-scan.rules /var/lib/suricata/rules/emerging-scan-drop.rules
+# echo "sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules"
+# sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
 echo "systemctl enable suricata"
 systemctl enable suricata
 
@@ -98,6 +99,8 @@ curl -o /etc/yum.repos.d/elastico.repo https://raw.githubusercontent.com/barutki
 cp -v /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.backup
 echo "sed -i 's/#network.host: 192.168.0.1/network.host: localhost/' /etc/elasticsearch/elasticsearch.yml"
 sed -i 's/#network.host: 192.168.0.1/network.host: localhost/' /etc/elasticsearch/elasticsearch.yml
+echo "sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml"
+sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml
 cp -v /etc/kibana/kibana.yml /etc/kibana/kibana.yml.backup
 echo "sed -i 's/#server.port: 5601/server.port: 5601/' /etc/kibana/kibana.yml"
 sed -i 's/#server.port: 5601/server.port: 5601/' /etc/kibana/kibana.yml

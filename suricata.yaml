@@ -1865,7 +1865,8 @@ mpipe:
 default-rule-path: /var/lib/suricata/rules
 rule-files:
 # - suricata.rules
- - emerging-scan-drop.rules
+ - emerging-scan.rules
+# - emerging-scan-drop.rules
 
 ##
 ## Advanced rule file configuration.
