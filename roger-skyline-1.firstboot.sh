@@ -27,6 +27,7 @@ echo "sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_h
 sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml
 echo "systemctl restart elasticsearch"
 systemctl restart elasticsearch
+systemctl restart filebeat
 echo "newaliases"
 newaliases
 
