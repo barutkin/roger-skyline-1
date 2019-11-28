@@ -51,6 +51,7 @@ chown suricata:suricata /etc/suricata/suricata.yaml
 chmod 640 /etc/suricata/suricata.yaml
 curl -O https://rules.emergingthreats.net/open/suricata-`suricata -V | awk -F'This is Suricata version ' '{print $2}' | awk '{print $1}'`/emerging.rules.tar.gz
 tar -xf emerging.rules.tar.gz
+mkdir -p /var/lib/suricata/rules
 cp rules/emerging-scan.rules /var/lib/suricata/rules/emerging-scan-drop.rules
 sed -i 's/^alert /drop /' /var/lib/suricata/rules/emerging-scan-drop.rules
 systemctl enable suricata
@@ -73,7 +74,10 @@ echo "@reboot root /bin/bash /root/update.sh" >> /etc/crontab
 echo "0 4 * * sun root /bin/bash /root/update.sh" >> /etc/crontab
 cp -v /etc/aliases /etc/aliases.backup
 echo "root:           barutkin@gmail.com" >> /etc/aliases
-echo "@reboot root sleep 30 && cp -fv /etc/crontab /etc/crontab.last && while inotifywait -e close_write /etc/crontab; do echo -e \"Subject: \`hostname | awk -F\'.\' \'{print \$1}\'\`\'s crontab has been changed\n\`diff -u /etc/crontab.last /etc/crontab\`\" | sendmail root; cp -fv /etc/crontab /etc/crontab.last; done" >> /etc/crontab
+
+# Crontabwatch
+curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh
+echo "@reboot root /bin/bash /root/crontabwatch.sh" >> /etc/crontab
 
 # First boot script
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh

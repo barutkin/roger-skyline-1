@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 12
+sleep 20
 firewall-cmd --permanent --remove-service='ssh'
 firewall-cmd --permanent --remove-service='dhcpv6-client'
 firewall-cmd --permanent --add-service='ssh-roger-skyline-1'
