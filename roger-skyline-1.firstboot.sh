@@ -9,7 +9,7 @@ firewall-cmd --permanent --add-service='https'
 firewall-cmd --permanent --add-service='kibana'
 firewall-cmd --reload
 filebeat modules enable suricata apache system
-sleep 30
+sleep 90
 filebeat setup -e
 newaliases
 

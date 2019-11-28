@@ -113,8 +113,8 @@ echo "systemctl enable filebeat"
 systemctl enable filebeat
 
 # Update script
-echo "curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh"
-curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh
+echo "curl -o /root/update.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh"
+curl -o /root/update.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh
 echo "@reboot root /bin/bash /root/update.sh >> /etc/crontab"
 echo "@reboot root /bin/bash /root/update.sh" >> /etc/crontab
 echo "0 4 * * sun root /bin/bash /root/update.sh >> /etc/crontab"
@@ -124,8 +124,8 @@ echo "root:           barutkin@gmail.com >> /etc/aliases"
 echo "root:           barutkin@gmail.com" >> /etc/aliases
 
 # Crontabwatch
-echo "curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh"
-curl -O https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh
+echo "curl -o /root/crontabwatch.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh"
+curl -o /root/crontabwatch.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh
 echo "@reboot root /bin/bash /root/crontabwatch.sh >> /etc/crontab"
 echo "@reboot root /bin/bash /root/crontabwatch.sh" >> /etc/crontab
 
