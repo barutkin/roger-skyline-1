@@ -105,6 +105,8 @@ echo "systemctl enable elasticsearch"
 systemctl enable elasticsearch
 echo "systemctl enable kibana"
 systemctl enable kibana
+echo "mv -v /etc/filebeat/filebeat.yml /etc/filebeat/filebeat.yml.backup"
+mv -v /etc/filebeat/filebeat.yml /etc/filebeat/filebeat.yml.backup
 echo "curl -o /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/filebeat.yml"
 curl -o /etc/filebeat/filebeat.yml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/filebeat.yml
 chmod 600 -v /etc/filebeat/filebeat.yml
