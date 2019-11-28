@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sleep 30
 cp -fv /etc/crontab /etc/crontab.last
 while inotifywait /etc/crontab; do
 	if [[ `md5sum /etc/crontab` != `md5sum /etc/crontab.last` ]]; then

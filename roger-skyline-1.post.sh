@@ -72,7 +72,7 @@ cp -v /etc/sysconfig/suricata /etc/sysconfig/suricata.backup
 echo "sed -i 's/OPTIONS=\"-i eth0/OPTIONS=\"-q 0/' /etc/sysconfig/suricata"
 sed -i 's/OPTIONS=\"-i eth0/OPTIONS=\"-q 0/' /etc/sysconfig/suricata
 cp -v /etc/crontab /etc/crontab.clean
-echo "@reboot root sleep 30 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I INPUT -j NFQUEUE >> /etc/crontab"
+echo "echo @reboot root sleep 30 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I INPUT -j NFQUEUE >> /etc/crontab"
 echo "@reboot root sleep 30 && /usr/sbin/iptables -I INPUT -j NFQUEUE && /usr/sbin/iptables -I INPUT -j NFQUEUE" >> /etc/crontab
 mv -v /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.backup
 echo "curl -o /etc/suricata/suricata.yaml https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/suricata.yaml"
@@ -115,9 +115,9 @@ systemctl enable filebeat
 # Update script
 echo "curl -o /root/update.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh"
 curl -o /root/update.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/update.sh
-echo "@reboot root /bin/bash /root/update.sh >> /etc/crontab"
-echo "@reboot root /bin/bash /root/update.sh" >> /etc/crontab
-echo "0 4 * * sun root /bin/bash /root/update.sh >> /etc/crontab"
+echo "echo @reboot root sleep 60 && /bin/bash /root/update.sh >> /etc/crontab"
+echo "@reboot root sleep 60 && /bin/bash /root/update.sh" >> /etc/crontab
+echo "echo 0 4 * * sun root /bin/bash /root/update.sh >> /etc/crontab"
 echo "0 4 * * sun root /bin/bash /root/update.sh" >> /etc/crontab
 cp -v /etc/aliases /etc/aliases.backup
 echo "root:           barutkin@gmail.com >> /etc/aliases"
@@ -126,12 +126,12 @@ echo "root:           barutkin@gmail.com" >> /etc/aliases
 # Crontabwatch
 echo "curl -o /root/crontabwatch.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh"
 curl -o /root/crontabwatch.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh
-echo "@reboot root /bin/bash /root/crontabwatch.sh >> /etc/crontab"
-echo "@reboot root /bin/bash /root/crontabwatch.sh" >> /etc/crontab
+echo "echo @reboot root sleep 120 && /bin/bash /root/crontabwatch.sh >> /etc/crontab"
+echo "@reboot root sleep 120 && /bin/bash /root/crontabwatch.sh" >> /etc/crontab
 
 # First boot script
 echo "curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh"
 curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh
 cp -v /etc/crontab /etc/crontab.backup
-echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh > /root/roger-skyline-1.firstboot.log >> /etc/crontab"
+echo "echo @reboot root /bin/bash /root/roger-skyline-1.firstboot.sh > /root/roger-skyline-1.firstboot.log >> /etc/crontab"
 echo "@reboot root /bin/bash /root/roger-skyline-1.firstboot.sh > /root/roger-skyline-1.firstboot.log" >> /etc/crontab
