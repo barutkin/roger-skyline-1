@@ -127,8 +127,8 @@ echo "root:           barutkin@gmail.com" >> /etc/aliases
 # Crontabwatch
 echo "curl -o /root/crontabwatch.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh"
 curl -o /root/crontabwatch.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/crontabwatch.sh
-echo "echo @reboot root sleep 120 && /bin/bash /root/crontabwatch.sh >> /etc/crontab"
-echo "@reboot root sleep 120 && /bin/bash /root/crontabwatch.sh" >> /etc/crontab
+echo "echo 0 0 * * * root /bin/bash /root/crontabwatch.sh >> /etc/crontab"
+echo "0 0 * * * root /bin/bash /root/crontabwatch.sh" >> /etc/crontab
 
 # First boot script
 echo "curl -o /root/roger-skyline-1.firstboot.sh https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/roger-skyline-1.firstboot.sh"

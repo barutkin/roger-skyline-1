@@ -27,10 +27,12 @@ filebeat setup -e
 # sed -i 's/#discovery.seed_hosts: \[\"host1\", \"host2\"\]/discovery.seed_hosts: \[\"127.0.0.1\"\]/' /etc/elasticsearch/elasticsearch.yml
 # echo "systemctl restart elasticsearch"
 # systemctl restart elasticsearch
-# echo "sleep 5"
-# sleep 5
-# systemctl restart filebeat
+echo "sleep 5"
+sleep 5
+echo "systemctl restart filebeat"
+systemctl restart filebeat
 echo "newaliases"
 newaliases
 
 cp -fv /etc/crontab.backup /etc/crontab
+cp -fv /etc/crontab /etc/crontab.last
