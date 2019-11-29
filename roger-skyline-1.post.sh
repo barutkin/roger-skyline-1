@@ -38,6 +38,8 @@ chmod 600 -v /home/rjeraldi/.ssh/id_rsa.pub
 cp -v /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.backup
 echo "sed -i \"s/#Listen 12.34.56.78:80/Listen `ip addr show dev enp0s3 | grep 'inet ' | awk '{print $2}' | awk -F'/' '{print $1}'`:80/\" /etc/httpd/conf/httpd.conf"
 sed -i "s/#Listen 12.34.56.78:80/Listen `ip addr show dev enp0s3 | grep 'inet ' | awk '{print $2}' | awk -F'/' '{print $1}'`:80/" /etc/httpd/conf/httpd.conf
+echo "sed -i 's/Listen 80/#Listen 80/' /etc/httpd/conf/httpd.conf"
+sed -i 's/Listen 80/#Listen 80/' /etc/httpd/conf/httpd.conf
 echo "curl -o /etc/pki/tls/private/rjeraldi-roger-skyline-1.key https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.key"
 curl -o /etc/pki/tls/private/rjeraldi-roger-skyline-1.key https://raw.githubusercontent.com/barutkin/roger-skyline-1/master/rjeraldi-roger-skyline-1.key
 chmod 600 -v /etc/pki/tls/private/rjeraldi-roger-skyline-1.key
