@@ -1,6 +1,6 @@
 # roger-skyline-1<img src="./intra.png" alt="roger-skyline-1 project result" width="15%" align="right"/>
 
-Roger-skyline-1 follows Init (basic commands and first reflexes in system and network administration). It will be a concrete example of the use of those commands and will let us start our own first web server.
+Roger-skyline-1 follows [Init](https://github.com/barutkin/init) (basic commands and first reflexes in system and network administration). It will be a concrete example of the use of those commands and will let us start our own first web server.
 
 [Subject](./roger-skyline-1.5.en.pdf)
 
