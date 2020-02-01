@@ -8,4 +8,4 @@ Roger-skyline-1 follows [Init](https://github.com/barutkin/init) (basic commands
 
 I bring up a part of Elastic stack (Filebeat, Elasticsearch and Kibana) to aggregate logs from Apache server.
 
-<p align="center"><img src="https://raw.githubusercontent.com/barutkin/docker-1/master/bonus.svg" alt="roger-skyline-1 project bonus part scheme" width="85%"/></p>
+<p align="center"><img src="https://github.com/barutkin/docker-1/raw/master/bonus.svg?sanitize=true" alt="roger-skyline-1 project bonus part scheme" width="85%"/></p>
